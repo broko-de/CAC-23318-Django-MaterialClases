@@ -1,4 +1,4 @@
-#Repositorio de clases 
+# Repositorio de clases 
 
 Bienvenido/a al repositorio de la comisión **#23318**. Aquí mantendremos actualizado todo el material que vayamos viendo en clases como ser:
 - Presentaciones
