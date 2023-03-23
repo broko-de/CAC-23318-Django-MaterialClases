@@ -2,8 +2,8 @@
 from setuptools import setup
 
 setup(
-    name="recursos humanos",
-    version="0.1",
+    name="recursos_humanos",
+    version="1.1",
     description="Paqete de ejemplo de empleados y nomina",
     author="Codo a Codo",
     author_email="cac@bue.edu.ar",
