@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from datetime import datetime
+
 # Create your views here.
 def index(request):
     if(request.GET.get('param')):
@@ -9,7 +11,36 @@ def index(request):
     else:
         param_uno='defecto'
     param_dos = request.GET.get('param2')
-    return render(request,'publica/index.html',{'param_uno':param_uno})
+    listado_cursos = [
+        {
+            'nombre':'Fullstack Java',
+            'descripcion':'Curso de Fullstack',
+            'categoria':'Programación',
+        },
+        {
+            'nombre':'Diseño UX/UI',
+            'descripcion':'🖌🎨',
+            'categoria':'Diseño',
+        },
+        {
+            'nombre':'Big Data',
+            'descripcion':'test',
+            'categoria':'Análisis de Datos',
+        },
+        {
+            'nombre':'Big Data Avanzado',
+            'descripcion':'test otrosa',
+            'categoria':'Análisis de Datos',
+        },
+    ]
+    context = {'param_uno':param_uno,
+            'param_dos':param_dos,
+            'param_tres':'hola',
+            'hoy':datetime.now(),
+            'cursos':listado_cursos
+        }
+    
+    return render(request,'publica/index.html',context)
     # return HttpResponse(f"""
     #     <h1>Proyecto Django - Codo a Codo🦄</h1>
     #     <p>Param: {param_uno}</p>
@@ -34,7 +65,10 @@ def ver_proyectos(request,anio,mes=1):
             <h1>Proyectos del  {mes}/{anio}</h1>
         """)
 
-def ver_proyectos_2023_04(request):    
+def ver_proyectos_2023_04(request):        
     return HttpResponse(f"""
             <h1>Proyectos del mes de Abril 2023</h1>
         """)
+
+def hola(request):
+    pass

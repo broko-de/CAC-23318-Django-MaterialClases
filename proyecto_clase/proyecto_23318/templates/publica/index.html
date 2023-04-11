@@ -7,8 +7,31 @@
     <title>TEST</title>
 </head>
 <body>
+    {% include './header.html' %}
+    
     <h1>Estoy renderizando un HTML 🦄</h1>
     <p>modificando!</p>
-    <p>{{param_uno}}</p>
+    <p>{{ param_uno }}</p>
+    <p>{{ param_dos|default:"no hay nada"|capfirst }}</p>
+    <p>{{ hoy|date:"d-m-Y H:i:s" }}</p>
+
+    {% if cursos|length > 0 %}
+        <ul>
+            {% for curso in cursos  %}
+                <li>
+                    {{ curso.nombre }} - {{ curso.categoria }}
+                    <p>{{ curso.descripcion }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay cursos disponibles ahora vacación</p>
+    {% endif %}
+    <!-- SOY UN COMENTARIO HTML-->
+    {% comment %} 
+Todo
+comentario desde django
+    {% endcomment %}
+    {% include './footer.html' %}
 </body>
 </html>
