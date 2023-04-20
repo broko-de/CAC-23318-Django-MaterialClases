@@ -12,7 +12,7 @@ def index(request):
     mensaje=None
     if(request.method=='POST'):
         contacto_form = ContactoForm(request.POST)
-        mensaje='Hemos recibido tus datos'
+        mensaje='Hemos recibido tus datos'        
         # acción para tomar los datos del formulario
     else:
         contacto_form = ContactoForm()
