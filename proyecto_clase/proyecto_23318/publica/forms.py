@@ -1,22 +1,62 @@
 from django import forms
+from django.forms import ValidationError
 
-class ContactoForm(forms.Form):
-    TIPO_CONSULTA = (
-        ('','-Seleccione-'),
-        (1,'Inscripciones'),
-        (2,'Soporte Aula Virtual'),
-        (3,'Ser docente'),
-    )
+def solo_caracteres(value):
+    if any(char.isdigit() for char in value):
+        raise ValidationError('El nombre no puede contener números. %(valor)s',
+                            code='Invalid',
+                            params={'valor':value})
 
-    nombre = forms.CharField(label='Nombre',max_length=4)
-    email = forms.EmailField(label='Email',max_length=200,required=False)
+class ContactoFormO(forms.Form):
+    nombre = forms.CharField(label='Nombre')
+    email = forms.EmailField(label='Email',max_length=50)
     asunto = forms.CharField(label='Asunto')
     mensaje = forms.CharField(label='Mensaje')
-    tipo_consulta = forms.ChoiceField(
-        label='Tipo de consulta',
-        choices=TIPO_CONSULTA
+
+class ContactoForm(forms.Form):
+    nombre = forms.CharField(
+            label='Nombre', 
+            max_length=50,
+            validators=(solo_caracteres,),
+            widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Solo letras'})
+        )
+    email = forms.EmailField(
+            label='Email',
+            max_length=100,
+            error_messages={
+                    'required': 'Por favor completa el campo'
+                },
+            widget=forms.TextInput(attrs={'class':'form-control','type':'email'})
+        )
+    asunto = forms.CharField(
+        label='Asunto',
+        max_length=100,
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    mensaje = forms.CharField(
+        label='Mensaje',
+        max_length=500,
+        widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
     )
     suscripcion = forms.BooleanField(
-        label='Deseo suscribirme a las noticias',
-        required=False
+        label='Deseo suscribirme a las novedades de codo a codo',
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input','value':1})
     )
+
+    def clean_mensaje(self):
+        data = self.cleaned_data['mensaje']
+        if len(data) < 10:
+            raise ValidationError("Debes especificar mejor el mensaje que nos envias")
+        return data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        asunto = cleaned_data.get("asunto")
+        suscripcion = cleaned_data.get("suscripcion")
+
+        if suscripcion and asunto and "suscripcion" not in asunto:
+            msg = "Debe agregar la palabara 'suscripcion' al asunto."
+            self.add_error('asunto', msg)
+            
+  

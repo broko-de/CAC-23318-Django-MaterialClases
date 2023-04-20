@@ -6,14 +6,18 @@ from django.template import loader
 from publica.forms import ContactoForm
 
 from datetime import datetime
+from django.contrib import messages
 
 # Create your views here.
 def index(request):    
     mensaje=None
     if(request.method=='POST'):
         contacto_form = ContactoForm(request.POST)
-        mensaje='Hemos recibido tus datos'        
+        if(contacto_form.is_valid()):  
+            messages.success(request,'Hemos recibido tus datos')          
         # acción para tomar los datos del formulario
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
     else:
         contacto_form = ContactoForm()
     listado_cursos = [
@@ -32,19 +36,11 @@ def index(request):
             'descripcion':'test',
             'categoria':'Análisis de Datos',
         },
-        {
-            'nombre':'Big Data Avanzado',
-            'descripcion':'test',
-            'categoria':'Análisis de Datos',
-        },
     ]
-
-    context = {                
-                'cursos':listado_cursos,
-                'mensaje':mensaje,
-                'contacto_form':contacto_form
-            }
-    return render(request,'publica/index.html',context)
+    return render(request,'cac/publica/index.html',{
+                    'cursos':listado_cursos,
+                    'mensaje': mensaje,
+                    'contacto_form': contacto_form})
 
 def quienes_somos(request):
     template = loader.get_template('publica/quienes_somos.html')

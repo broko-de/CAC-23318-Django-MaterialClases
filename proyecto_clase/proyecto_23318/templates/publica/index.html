@@ -71,32 +71,44 @@
         <div class="row">
 
         <!--Grid column-->
-            <div class="col-md-6 mb-md-0 mb-6">
+        <div class="col-md-6 mb-md-0 mb-6">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
                 
-                {% if mensaje %}
-                    <div class="alert alert-success" role="alert">
-                        {{mensaje}}
-                    </div>
-                {% endif %}
-                <form id="contact-form" name="contact-form" action="{% url 'inicio' %}" method="POST" novalidate>
-                    {% csrf_token %}
-                    {% comment %} {{ contacto_form }} {% endcomment %}
-                    
-                    {% comment %} <table>
-                        {{ contacto_form.as_table }}
-                    </table> {% endcomment %}
+            <form novalidate id="contact-form" name="contact-form" action="{% url 'inicio' %}" method="POST">
+                {% csrf_token %}
 
-                    {% comment %} <ul>
-                        {{ contacto_form.as_ul }}
-                    </ul> {% endcomment %}
-
-                    {{ contacto_form.as_p }}
-                    <div class="text-center text-md-left mt-3">
-                        <button class="btn btn-primary" type="submit">Enviar</button>
+                <div class="row">
+                    {% for campo in contacto_form %}
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <label for="name" class="">{{ campo.label }}</label>
+                            {{campo}}
+                            {% comment %} {% if campo.field.widget.input_type == 'checkbox' %}
+                                {{campo}} 
+                                <label for="name" class="">{{ campo.label }}</label>
+                            {% else %}
+                                <label for="name" class="">{{ campo.label }}</label>
+                                {{campo}}
+                            {% endif %} {% endcomment %}
+                        </div>
+                        <div>{{campo.errors}}</div>
                     </div>
-                </form>
-                <div class="status"></div>
-            </div>
+                    <!--Grid column-->
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center text-md-left mt-3">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
+            </form>
+
+            <div class="status"></div>
+        </div>
         <!--Grid column-->
 
             <!--Grid column-->
