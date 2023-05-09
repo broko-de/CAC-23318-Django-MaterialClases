@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50,verbose_name='Nombre')
+    descripcion = models.TextField(null=True,verbose_name='Descripcion')
     baja = models.BooleanField(default=0)
 
     def __str__(self):
@@ -32,3 +33,8 @@ class Curso(models.Model):
 
 #CONSIGNA DE TAREA: Crear el modelo de Comisión en base a estos ejemplos vistos y teniendo en 
 # cuenta el diagrama de clases.
+class Comision(models.Model):
+    nombre = models.CharField(max_length=100,verbose_name="Nombre")
+    horario = models.CharField(verbose_name="Horario",null=True,default=None)
+    link_meet = models.URLField(max_length=100,verbose_name='Link de Meet')
+    curso = models.ForeignKey(Curso,on_delete=models.CASCADE) #relacion mucho a uno

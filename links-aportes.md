@@ -17,3 +17,5 @@ Gitignore IO: https://docs.gitignore.io/
 Diagramas entidad relacion: https://www.lucidchart.com/pages/es/simbolos-de-diagramas-entidad-relacion
 
 Diagrama DER Proyecto: https://app.diagrams.net/#G1yXXDsMmWs5WF5-eNXh7Uo3XPdeJYiUKx#%7B%22pageId%22%3A%22XuTMyhKvmD8bKCNw4M_z%22%7D
+
+https://overapi.com/django
