@@ -5,11 +5,14 @@ from .models import Curso, Categoria
 class CategoriaForm(forms.ModelForm):
     # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
 
+    # def clean_nombre(self):
+    #     pass
+    
     class Meta:
         model=Categoria
         # fields='__all__'
         fields=['nombre']
-        #exclude=('baja',)
+        # exclude=('baja',)
         widgets = {
             'nombre' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese un nombre'})
         }
