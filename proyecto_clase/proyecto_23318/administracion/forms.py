@@ -24,10 +24,6 @@ class CategoriaForm(forms.ModelForm):
 
 class CursoForm(forms.ModelForm):
 
-    class Meta:
-        model=Curso
-        fields=['nombre','fecha_inicio','portada','descripcion','categoria']
-
     nombre=forms.CharField(
             label='Nombre', 
             widget=forms.TextInput(attrs={'class':'form-control'})
@@ -48,3 +44,9 @@ class CursoForm(forms.ModelForm):
     portada = forms.ImageField(
         widget=forms.FileInput(attrs={'class':'form-control'})
     )
+    
+    class Meta:
+        model=Curso
+        fields=['nombre','fecha_inicio','portada','descripcion','categoria']
+
+    

@@ -61,19 +61,23 @@
 
             </tbody>
         </table>
-        {% comment %} <div class="row">
-            <div class="col-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="#"><<</a></li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">>></a></li>
-                    </ul>
-                  </nav>
-            </div>
-        </div> {% endcomment %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
+                {% endif %}
+        
+                <li class="page-item">
+                    <a class="page-link">{{ page_obj.number }}</a>
+                </li>
+        
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
     <div class="card-footer text-muted">
         Footer
