@@ -96,6 +96,8 @@ class Comision(models.Model):
     curso = models.ForeignKey(Curso,on_delete=models.CASCADE) #relacion mucho a uno
     estudiantes = models.ManyToManyField(Estudiante,through='Inscripcion') 
 
+    def __str__(self):
+        return self.nombre
 # class ComisionMTM(models.Model):
 #     nombre = models.CharField(max_length=100,verbose_name='Nombre')
 #     horario = models.TextField(null=True,verbose_name='Horario')
