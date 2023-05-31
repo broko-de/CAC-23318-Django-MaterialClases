@@ -1,5 +1,8 @@
 from django.contrib import admin
-from administracion.models import Estudiante, Proyecto,Curso,Categoria,Inscripcion,Comision
+from administracion.models import Estudiante, Proyecto,Curso,Categoria,Inscripcion,Comision,Usuario
+
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 # Registro por defecto al admin de Django
 admin.site.register(Estudiante)
@@ -57,3 +60,5 @@ sitio_admin.register(Proyecto)
 sitio_admin.register(Categoria,CategoriaAdmin)
 sitio_admin.register(Curso,CursoAdmin)
 sitio_admin.register(Comision,ComisionAdmin)
+sitio_admin.register(Usuario,UserAdmin)
+sitio_admin.register(Group, GroupAdmin)

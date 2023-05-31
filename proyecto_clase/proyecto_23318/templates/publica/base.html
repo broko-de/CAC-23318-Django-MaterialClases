@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo %}Inicio CAC{% endblock titulo %}</title>
+    <title>{% block titulo %}Inicio CAC{% endblock  %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
@@ -38,22 +38,31 @@
                     <li><a href="{% url 'cursos' %}" class="nav-link px-2 link-dark">Cursos y Carreras</a></li>
                     <li><a href="{% url 'proyectos' %}" class="nav-link px-2 link-dark">Proyectos</a></li>
                     <li><a href="{% url 'quienes_somos' %}" class="nav-link px-2 link-dark">Nosotros</a></li>
-                    
+                    {% if perms.administracion %}
+                        <li><a href="{% url 'inicio_administracion' %}" class="nav-link px-2 link-dark">Administración</a></li>
+                    {% endif %}
                 </ul>
                 <div class="col-md-3 text-end">
-                    <a type="button" href="" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
-                    <a type="button" href="" class="btn btn-dark">Registrarse</a>
+                    {% if user.is_authenticated %}
+                        {% comment %} <p>Bienvenido\a, {{ user.username }}.</p> {% endcomment %}
+                        <p type="text" style="display: inline" class="">Bienvenido\a, {{ user.username }}.</p>
+                        <a type="text" style="display: inline" href="{% url 'password_change' %}" class="">Cambiar password</a>
+                        <a type="button" href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+                    {% else %}
+                        <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+                        <a type="button" href="{% url 'registrarse' %}" class="btn btn-dark">Registrarse</a>
+                    {% endif %}
                 </div>
             </div>
             </div>
         </nav>
     </header>
     <main class="flex-shrink-0">
-        {% block contenido %}{% endblock contenido %}
+        {% block contenido %}
+        {% endblock contenido %}
     </main>    
     
     {% include './footer.html' %}
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
     crossorigin="anonymous"></script>  

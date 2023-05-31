@@ -1,7 +1,8 @@
 from django.db import models
 
-from django.contrib.auth.models import User
 from django.utils.text import slugify 
+
+from django.contrib.auth.models import AbstractUser
 
 #Modelo UNICO - SOLUCION 1
 # class PersonaU(models.Model):
@@ -120,9 +121,12 @@ class Inscripcion(models.Model):
     def __str__(self):
         return self.estudiante.nombre
     
+class Usuario(AbstractUser):
+    pass
+
 class Perfil(models.Model):
     """MODELO QUE PERMITE DEL USER MODEL DE DJANGO PARA AGREGERLE CAMPOS EXTRAS"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     telefono = models.CharField(max_length=20,verbose_name='Teléfono')
     domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
     foto = models.ImageField(upload_to='perfiles/',null=True,verbose_name='Foto Perfil')
