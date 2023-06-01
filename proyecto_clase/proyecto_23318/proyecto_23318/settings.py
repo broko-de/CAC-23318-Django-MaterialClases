@@ -162,6 +162,13 @@ RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
 #Modelo User
 AUTH_USER_MODEL = 'administracion.Usuario'
 
-LOGIN_URL ='/cuentas/login'
+LOGIN_URL ='/accounts/login'
 
 LOGIN_REDIRECT_URL = "inicio"
+
+# PASSWORD_HASHERS = [
+#     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+#     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+#     'django.contrib.auth.hashers.Argon2PasswordHasher',
+#     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+# ]

@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 @login_required
+@permission_required('administracion.add_categoria',login_url='inicio')
 def index_administracion(request):
     variable = 'test variable'
     return render(request,'administracion/index_administracion.html',
@@ -25,6 +26,8 @@ def index_administracion(request):
 """
 def categorias_index(request):
     #queryset
+    if not request.user.is_authenticated:
+        return redirect('inicio')
     categorias = Categoria.objects.filter(baja=False)
     return render(request,'administracion/categorias/index.html',{'categorias':categorias})
 

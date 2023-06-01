@@ -129,8 +129,8 @@ def cac_registrarse(request):
         form = RegistrarUsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
+            # username = form.cleaned_data.get('username')
+            # email = form.cleaned_data.get('email')
             messages.success(
                 request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
             return redirect('login')
@@ -138,7 +138,7 @@ def cac_registrarse(request):
         form = RegistrarUsuarioForm()
     return render(request, 'publica/registrarse.html', {'form': form, 'title': 'registrese aquí'})
 
-
+#Vista de login propia
 def cac_login(request):
     if request.method == 'POST':
         # AuthenticationForm_can_also_be_used__
